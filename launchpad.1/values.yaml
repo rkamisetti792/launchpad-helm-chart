@@ -16,7 +16,7 @@ launchpad:
     repository: dockerhub.gemalto.com/sas/sta-launchpad
     tag: 1.8.0-140
   route:
-    host: userportal.eu-staging.safenetid.com
+    host: userportal.eu-prod.safenetid.com
 
   configmap:
     httpport: 3000
