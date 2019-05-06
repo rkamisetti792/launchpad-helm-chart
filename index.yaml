@@ -8,6 +8,6 @@ entries:
     digest: 3e79cd4a2e634f589d961a6ce881a9e1a6ae9d8f49bcbcef4b08ae58f1a91130
     name: launchpad.1
     urls:
-    - launchpad.1-0.1.0.tgz
+    - launchpad.1
     version: 0.1.0
 generated: 2019-05-06T11:22:24.959081395+05:30
