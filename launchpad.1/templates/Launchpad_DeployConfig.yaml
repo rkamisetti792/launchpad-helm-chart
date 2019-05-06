@@ -6,7 +6,7 @@ metadata:
     labels:
         app: {{ .Release.Name }}
 spec:
-    replicas: {{ default "1" .Values.launchpad.replicas }}
+    replicas: {{ default "2" .Values.launchpad.replicas }}
     selector:
       matchLabels:
         app: {{ .Release.Name }}
