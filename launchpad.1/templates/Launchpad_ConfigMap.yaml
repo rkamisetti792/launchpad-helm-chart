@@ -1,0 +1,88 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: {{ .Release.Name }}-configmap-vault
+    namespace: {{ .Values.launchpad.Namespace }}
+data:
+    config.yml: |2-
+        default:
+            version: 0.0.1
+            httpPort: {{ default "3000" .Values.launchpad.configmap.httpport | quote }}
+            ssl:
+                httpsPort: {{ default "3443" .Values.launchpad.configmap.ssl.httpsPort | quote }}
+                keyPath: {{ default "/opt/gemalto/ssl/key.pem" .Values.launchpad.configmap.ssl.keyPath | quote }}
+                certPath: {{default "/opt/gemalto/ssl/cert.pem" .Values.launchpad.configmap.ssl.certPath | quote }}
+                cacertPath: {{default "/opt/gemalto/ssl/caTrustChain.pem" .Values.launchpad.configmap.ssl.cacertPath | quote }}
+                passphrase: {{ .Values.launchpad.configmap.ssl.passphrase | quote }}
+            sasBaseUrl: {{ .Values.launchpad.configmap.sasBaseUrl | quote }}
+            amlBaseUrl: {{ .Values.launchpad.configmap.amlBaseUrl | quote }} 
+            aasBaseUrl: {{ .Values.launchpad.configmap.aasBaseUrl | quote }}
+            idpBaseUrl: {{ .Values.launchpad.configmap.idpBaseUrl | quote }} 
+            redisUrl: {{ .Values.launchpad.configmap.redisUrl | quote }}
+            scsBaseUrl: {{ .Values.launchpad.configmap.scsBaseUrl | quote }} 
+            elastic:
+                host: {{ .Values.launchpad.configmap.elastic.host | quote }} 
+                httpAuth: {{ .Values.launchpad.configmap.elastic.httpAuth | quote }}
+                indexPrefix: "sta-"
+            scsPubBaseUrl: {{ .Values.launchpad.configmap.scsPubBaseUrl | quote }} 
+            idpPubBaseUrl: {{ .Values.launchpad.configmap.idpPubBaseUrl | quote }} 
+            tenantAliasSuffix: "-STA"
+            samlEntityId: "sta-userportal"
+            samlIdpBaseUrl: {{ .Values.launchpad.configmap.samlIdpBaseUrl | quote }}
+            samlAssertBaseUrl: {{ .Values.launchpad.configmap.samlAssertBaseUrl1 | quote }} 
+            samlKey: {{ .Values.launchpad.configmap.samlKey | quote }}
+            samlCert: "-----BEGIN CERTIFICATE-----\nMIIDizCCAnOgAwIBAgIJAL62XA8hqVN2MA0GCSqGSIb3DQEBCwUAMFwxCzAJBgNVBAYTAkFVMRMwEQYDVQQIDApTb21lLVN0YXRlMRAwDgYDVQQKDAdHZW1hbHRvMRAwDgYDVQQLDAdHZW1hbHRvMRQwEgYDVQQDDAt1c2VyLXBvcnRhbDAeFw0xODA5MjAxODUzNTNaFw0yODA5MTcxODUzNTNaMFwxCzAJBgNVBAYTAkFVMRMwEQYDVQQIDApTb21lLVN0YXRlMRAwDgYDVQQKDAdHZW1hbHRvMRAwDgYDVQQLDAdHZW1hbHRvMRQwEgYDVQQDDAt1c2VyLXBvcnRhbDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAK5MSqJepW9e08kgCSGKatvNxiD1x4jYOId+l6/veqoSFBZUVHeYWJtUX7xX+UCbq6/UjHsfJlSr6DYLxSggmH1Q+eavTStn3Bt3RberJR2jWd6kM8l/W3V5+aS89nFfHtDc36iwbkf0t2ddlEhG4n/JIJE3bElIkXU7FNuyI435n/LTo45d/lcEwxbzCc0XLLkWwjOawAX0WrDO+mcpZmWYwVsvTMMV83xdJWqJQJE3nvht8/+HdigkfFFulEUdzs9iYai/TSa/WwsrniivzkVyDQ4E4aD7Df1gI0soGPGiisc/BrGVZ55g9vy/PGthKXpl3f32K19gdiqPKiREdNMCAwEAAaNQME4wHQYDVR0OBBYEFFwhKPW094BY+KDATc+mOrcJr9aiMB8GA1UdIwQYMBaAFFwhKPW094BY+KDATc+mOrcJr9aiMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQELBQADggEBAGrpAuKaciIicvUDB5GIMheYDgquV08o5Q+CmWE42rAqngAgbiUunqYyNETnrI/sEIthmhyt2GpmriN5vQJNP/EnCAXwxsyWyYK0y5x0uWI4hclYF1oBOasTYVXcDAEWx19eCFwhemo57Ss9eAPdLe+kBP3w+QBl+GiBQ0LvZ6Hj3nOBfX5Qxc/vSjU7X9Dd7HMkt4QGWsjDDjIga2JOO7WZh4y0wzK5J5EDLI+/coHEVd416QrcjvAiN3nB6qtkKl08FLTT4z8d8HJ98JF51VjMLEXEN3LVnqWRaa4YIIqPfEqk+nwvtmPOavw/1gtOmW8ufLxKwDucVmIpwc98gEA=\n-----END CERTIFICATE-----"
+            idpAdminUsername: {{ .Values.launchpad.configmap.idpAdminUsername | quote }}
+            idpAdminPassword: {{ .Values.launchpad.configmap.idpAdminPassword | quote }}
+            sessionIdPrefix: "launchpad-"
+            sessionSecret: {{ .Values.launchpad.configmap.sessionSecret | quote }}
+            sessionStoreSecret: {{ .Values.launchpad.configmap.sessionStoreSecret | quote }}
+            helpUrl: {{ .Values.launchpad.configmap.helpUrl | quote }} 
+            i18nPubBaseUrl: {{ .Values.launchpad.configmap.i18nPubBaseUrl | quote }}
+            i18nLanguages:  
+            - cs
+            - da
+            - de
+            - en
+            - fr
+            - it
+            - ja
+            - ko
+            - nl
+            - nb
+            - sv
+            - zh-CN
+            - zh-TW
+            cacheTTL: 86400  
+            sessionStoreTTL: 28800  
+            csp:
+                directives:
+                    defaultSrc:
+                    - "'self'"
+                    connectSrc:
+                    - "'self'"
+                    - {{ .Values.launchpad.configmap.csp.connectSrc_url1 | quote }}
+                    - {{ .Values.launchpad.configmap.csp.connectSrc_url2 | quote }}
+                    imgSrc:
+                    - "'self'"
+                    - 'data:'
+                    - {{ .Values.launchpad.configmap.csp.imgsrc_url1 | quote }} 
+                    - {{ .Values.launchpad.configmap.csp.imgsrc_url2 | quote }}
+                    - {{ .Values.launchpad.configmap.csp.imgsrc_url3 | quote }}
+                    - {{ .Values.launchpad.configmap.csp.imgsrc_url4 | quote }}
+                    scriptSrc:
+                    - "'self' 'unsafe-eval'"
+                    styleSrc:
+                    - "'self' 'unsafe-inline'"
+                    - {{ .Values.launchpad.configmap.csp.stylesrc_url1 | quote }}
+                    - {{ .Values.launchpad.configmap.csp.stylesrc_url2 | quote }}
+                    - {{ .Values.launchpad.configmap.csp.stylesrc_url3 | quote }}
+                    fontSrc:
+                    - "'self'"
+                    - 'data:'
+            logLevel: "info"
+            test:
+                version: 0.0.1
+            production:
+                samlEntityId: "sta-userportal"
+                samlAssertBaseUrl: {{ .Values.launchpad.configmap.production.samlAssertBaseUrl2 | quote }}

@@ -1,0 +1,16 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+    name: {{ .Release.Name }}
+    namespace: {{ .Values.launchpad.Namespace }}
+spec:
+    host: {{ .Values.launchpad.route.host }}
+    to:
+        kind: Service
+        name: {{ .Release.Name }}
+        weight: 100
+    port:
+        targetPort: {{ .Release.Name }}-https
+    tls:
+        termination: passthrough
+    wildcardPolicy: None

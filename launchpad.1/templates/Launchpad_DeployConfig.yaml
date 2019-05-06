@@ -1,0 +1,76 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+    name: {{ .Release.Name }}
+    namespace: {{ .Values.launchpad.Namespace }}
+    labels:
+        app: {{ .Release.Name }}
+spec:
+    replicas: {{ default "1" .Values.launchpad.replicas }}
+    selector:
+      matchLabels:
+        app: {{ .Release.Name }}
+    template:
+      metadata:
+        labels:
+          app: {{ .Release.Name }}
+      spec:
+        {{- if .Values.launchpad.pullSecrets }}
+        imagePullSecrets:
+{{ toYaml .Values.launchpad.pullSecrets | indent 8 }}
+        {{- end }}
+        {{- if .Values.launchpad.hostAliases }}
+        hostAliases:
+{{ toYaml .Values.launchpad.hostAliases | indent 12 }}
+        {{- else }}
+        hostAliases: 
+        - ip: "10.124.99.142"
+          hostnames:
+          - "scs-internal.sta.test.gemalto.com"
+          - "scs.sta.test.gemalto.com"
+          - "re-cci.sta.test.gemalto.com"
+          - "redis"
+        {{- end }}
+        containers:
+        - env:
+            - name: NODE_ENV
+              value: production
+            - name: app
+              value: {{ .Release.Name }}
+            - name: env
+              value: {{ .Values.launchpad.env.zone }}
+          name: {{ .Release.Name }}
+          image: {{ .Values.launchpad.image.repository }}:{{ .Values.launchpad.image.tag }}
+          imagePullPolicy: Always
+          ports:
+            - name: {{ .Release.Name }}-http
+              containerPort: 3000
+              protocol: TCP
+            - name: {{ .Release.Name }}-https
+              containerPort: 3443
+              protocol: TCP
+          terminationMessagePath: /dev/termination-log
+          resources: {}
+          volumeMounts:
+            - name: launchpad-configmap-vault
+              readOnly: true
+              mountPath: /opt/gemalto/etc
+            - name: launchpad-secret
+              readOnly: true
+              mountPath: /opt/gemalto/ssl
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        securityContext: {}
+        terminationGracePeriodSeconds: 30 
+        volumes:
+          - name: launchpad-configmap-vault
+            configMap:
+              name: {{ .Release.Name }}-configmap-vault
+              defaultMode: 420
+          - name: launchpad-secret
+            secret: 
+              secretName: {{ .Release.Name }}-secret
+              defaultMode: 420
+              
+       
+

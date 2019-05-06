@@ -1,0 +1,124 @@
+# Default values for launchpad.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+pullSecrets:
+  - name: docker-creds 
+
+launchpad:
+  enabled: true
+  Namespace: staging
+  pullSecrets:
+  - name: docker-creds 
+  env:
+    zone: zone.eu-staging.1
+  image:
+    repository: dockerhub.gemalto.com/sas/sta-launchpad
+    tag: 1.8.0-140
+  route:
+    host: userportal.eu-staging.safenetid.com
+
+  configmap:
+    httpport: 3000
+    vault: 
+      url: https://vault.louvre.sasstaeng.sascloud.io:8200
+
+    ssl:
+      httpsPort: 3443
+      keyPath: /opt/gemalto/ssl/key.pem
+      certPath: /opt/gemalto/ssl/cert.pem
+      cacertPath: /opt/gemalto/ssl/cacert.pem
+      passphrase: mex1c0!
+
+    sasBaseUrl: http://10.124.96.27
+    amlBaseUrl: http://10.124.99.142:32792
+    aasBaseUrl: http://10.124.99.142:32511
+    idpBaseUrl: http://10.124.99.142:8080
+    redisUrl: redis://10.124.99.142:6379
+    scsBaseUrl: https://scs-internal.sta.test.gemalto.com
+
+
+    elastic:
+      host: http://10.124.99.142:9200
+      httpAuth: elastic:changeme
+
+    scsPubBaseUrl: https://resources.sta.test.gemalto.com
+    idpPubBaseUrl: https://idp.sta.test.gemalto.com
+
+    samlAssertBaseUrl1: http://localhost:3000
+    samlIdpBaseUrl: https://idp.sta.test.gemalto.com
+    samlKey: -----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC8Xq5FETOOu/J7n7ey0CO4OY8klB8B0TgoXgFbfpHplXoOyTRcz2hdQDptp+EuMauGiNN/x1u9ubMWUySIrekwUom6Ausrjf3DP5s8I4W1foAkEc9g6yOzJBhro5+Wx/r7t6s8aV0qEqq5Lh1q3XjRhywT9Av9KR1NkWSThhtYfkvrYlvhBis9TyLXy+5oPFdhIYnlAWC4MRsVbDWMLS+3VnIm+2OOO+mMduXd+JNSIAa75MqN8sdRos8BtNPtBUd/8pDGDnscImcwqym2aM9QX9Irbvb6o28w8vYG5BEASHGcaRORjsALcizSoAXUshY9820U1CMjrTXU7+Qjd+FjAgMBAAECggEAOIrTFLhNGZMg/iq7IVmI30unw/sSM6Fxkexly+j6M3tC4B1VMmavlQ4qe6/gz9To/8Eie0CEMTcEorbiSISrcm3UGZm2raQ5f9of5rVi9U+7dxhBf34VgThcfDLpPIFavSQsqj2WUYK47E0DV4iTM5G3kWW4E4271gTGg+HFY5JAnv3f3cY9J4d0j/Jw9QbDElSVpxQw9/+KVsiae7fCqdIhTU9WtowbgAX6pjAxwL1FD7FJ6tccuOBdyyG32fVBWEhivYjYVyn6AuaIBkuZK2oLjQofkq+7W68aVh+CMpx4QoZtSh1sVaZ7X6o43yh11S8sd/LoqSNLOh9t6MmugQKBgQD5gGMmo53sOasar1f3bj9edXE4ZafDXFv88M2e2NQsCx0a2EPGc8Mx/JzH+4JcMrgiphDj4POOSIsEyq3BiHMFIU/4Fl/XS08aMTcx5qhrSZlT8wAQApPEWSOwhH0LKljqblVW9p3hSd2kP9eina4FnOsjpZieNjPa7438+6QhGQKBgQDBRq7aGTPXj4BFEY/1Nq+5MVdOiOdohZKqtbT0jJcwAH0TBTWH/0NIh5u4vfy5CVkIQAM/vOl4VTu5aHwnX+yU2tANUEXvgGyiuAc96sW1COt28eDxoSP+ZZJk/GRqetvrItnAWJbWYzjn2xCG5+B/2Kom/IOoYCYd0ZFFeVk52wKBgAobkGi9UiWCxJLFLbwhZEHQYjDVtXEtqbBalQntYNMT9C7lOgGtKOg6gqN7ZfGUQG9u6NpCf7tw5ujfySBBBd/cVKAJUAKp01+NRN4pqQMHrUWAX61GXXQj5FU/WM19/rIonB50yTqaQndn+rVky+sAS2pbSA6IxZsF/2uTSjfpAoGAc28p420F/4rfi2Dv3/7neO41PNybiVutu3OHPj/x1GOWUBPeYvlcUCdeJDqkhEdG+5xv1FOaBZqybwwuir3J6SW++RSmkGLdf1n2SU69AmDvcT0JoochnkE/7DyqJMZ4LrnD4BOJE0ZzqFa4SjqXZQQcq+hJIfk7Crgt0Zamad0CgYAl51GpsFqtU/acA5xBrckUCB94urSYwdz4kjbZNoMkvp0FraKuSohD0jQuRv7GtxFaRxGLHClp4GzMjI6a03LSW41nVPjWvF1xoYABKDku0RYR4OYr/YfkVSFy797SnawJyMPfxBffSYyp6wJUe10bhpNq9wGUVe9umBSwAMqOmg==\n-----END PRIVATE KEY-----
+
+    idpAdminUsername: sta-launchpad-client
+    idpAdminPassword: sta-launchpad-client
+
+    sessionSecret: gemalto-123!
+    sessionStoreSecret: gemalto-456!
+    helpUrl: https://www.gemalto.com
+    
+    i18nPubBaseUrl: https://s3-us-west-2.amazonaws.com/localization-launchpad/
+
+    csp:
+      connectSrc_url1: https://s3.amazonaws.com
+      connectSrc_url2: https://launchpadprod.s3.amazonaws.com/
+      imgsrc_url1: https://spedemo-scs.sascloudservices.com
+      imgsrc_url2: https://resources.safenetid.com
+      imgsrc_url3: https://scs.sta.test.gemalto.com
+      imgsrc_url4: https://resources.sta.test.gemalto.com
+      stylesrc_url1: https://spedemo-scs.sascloudservices.com
+      stylesrc_url2: https://resources.safenetid.com
+      stylesrc_url3: https://scs.sta.test.gemalto.com
+    
+    production:
+      samlAssertBaseUrl2: https://userportal.sta.test.gemalto.com
+
+
+  #hostAliases:
+  #- ip: "10.164.44.59"
+  #   hostnames:
+  #   - "scs-internal.sta.test.gemalto.com"
+  #   - "scs.sta.test.gemalto.com"
+  #   - "re-cci.sta.test.gemalto.com"
+
+  #livenessProbe:
+  #  failureThreshold: 3
+  #  httpGet:
+  #    path: /ping
+  #    port: 3000
+  #    scheme: HTTP
+  #  initialDelaySeconds: 10
+  #  periodSeconds: 10
+  #  successThreshold: 1
+  #  timeoutSeconds: 1
+
+  #readinessProbe:
+  #  failureThreshold: 3
+  #  httpGet:
+  #    path: /probe
+  #    port: 3000
+  #    scheme: HTTP
+  #  initialDelaySeconds: 10
+  #  periodSeconds: 10
+  #  successThreshold: 1
+  #  timeoutSeconds: 1
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #  cpu: 100m
+  #  memory: 128Mi
+  # requests:
+  #  cpu: 100m
+  #  memory: 128Mi
+
+nameOverride: ""
+fullnameOverride: ""
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
